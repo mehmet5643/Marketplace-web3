@@ -1,9 +1,13 @@
 import styles from "./Navbar.module.scss";
 import React from "react";
+import { parseAddress } from "../../utils/parseAddress";
 import { NavLink } from "react-router-dom";
 import LOGO from "../../Assets/logoTransparent.png";
-
+import { useSetAccount } from "../../Hooks/useSetAccount";
+import { useSelector } from "react-redux";
 export const Navbar = () => {
+  const connectAccount = useSetAccount();
+  const account = useSelector((state) => state.accounts.account);
   return (
     <div className={styles.wrapper}>
       <div className={styles.brand}>
@@ -21,7 +25,7 @@ export const Navbar = () => {
           Listed Items
         </NavLink>
       </div>
-      <button>Connect Button</button>
+      <button onClick={() => connectAccount()}>{account ? parseAddress(account) : "Connect Wallet" }</button>
     </div>
   );
 };
