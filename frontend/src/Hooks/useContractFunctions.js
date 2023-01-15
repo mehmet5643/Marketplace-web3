@@ -13,17 +13,19 @@ export const useContractFunctions= () =>{
     const contractERC721 = new ethers.Contract(CONTRACT_ADDRESS, ABIERC721, signer);
 
     const startNFTSale = async (contractAddress, tokenId, price) => {
-        const state = await contract.getApproved(tokenId)
-        if (state !== contract.address) {
-            const tx = await contractERC721.approve(contract.address, tokenId);
-            await tx.wait();
-        }
+       
         const tx = await contract.startNFTSale(contractAddress, tokenId, price);
         await tx.wait();
         
     }
 
-  
+    const buyNFT = async (contractAddress, tokenId, price) => {
+        const tx = await contract.buyNFT(contractAddress, tokenId, price);
+        await tx.wait();
+    }
+
+
+  return {startNFTSale,buyNFT}
 
 
 }

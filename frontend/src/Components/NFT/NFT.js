@@ -1,10 +1,10 @@
 import styles from "./NFT.module.scss";
 import { parseAddress } from "../../utils/parseAddress";
-// import { useContractFunctions } from "../../Hooks/useContractFunctions";
-// import { useState } from "react";
+import { useContractFunctions } from "../../Hooks/useContractFunctions";
+import { useState } from "react";
 const NFT = ({ type, contractAddress, tokenId, price, deadline, id }) => {
-//   const { startNFTSale } = useContractFunctions();
-//   const [fixedPriceInput, setFixedPriceInput] = useState();
+  const { startNFTSale,buyNFT } = useContractFunctions();
+  const [fixedPriceInput, setFixedPriceInput] = useState();
   return (
     <div className={styles.wrapper}>
       <div className={styles.image}>
@@ -28,10 +28,10 @@ const NFT = ({ type, contractAddress, tokenId, price, deadline, id }) => {
               spellCheck="false"
               placeholder={"0.0"}
               onChange={(value) => {
-                // setFixedPriceInput(Number(value.target.value));
+                setFixedPriceInput(Number(value.target.value));
               }}
             />
-            <button className={styles.button} >Fixed Price</button>
+            <button className={styles.button} onClick={()=>{startNFTSale(contractAddress,fixedPriceInput,tokenId)}}>Fixed Price</button>
           </div>
           <div className={styles.inputPart}>
             <input
@@ -52,7 +52,7 @@ const NFT = ({ type, contractAddress, tokenId, price, deadline, id }) => {
       ) : type === "iki" ? (
         <div className={styles.type2}>
           <div>{price} Wei</div>
-          <button className={styles.button} >Buy </button>
+          <button className={styles.button} onClick={() => buyNFT(id,price)}>Buy </button>
         </div>
       ) : (
         <div className={styles.type3}>
