@@ -7,7 +7,9 @@ import { NFT } from "../../Components";
 export const MyProfile = () => {
   const { getNFTs } = useGetNFTs();
   const account = useSelector((state) => state.accounts.account);
-  const nft = useSelector((state) => state.accounts.myNFTs);
+  const nft = useSelector((state) => state.accounts.accNFTs);
+
+  
   useEffect(() => {
     const work = async () => {
       await getNFTs();
@@ -16,12 +18,16 @@ export const MyProfile = () => {
   }, [account]);
   return (
     <div className={styles.wrapper}>
-      {
-        nft?.map((nft) => {
-          return <NFT key={nft.tokenId} nft={nft} />
-        }
-        )
-      }
+      {nft ? nft.ownedNfts.map((item,i) => {
+        return (
+          <NFT
+            key={i}
+            type="bir"
+            tokenId={item.tokenId}
+            contractAddress={item.contract.address.toString()}
+          />
+        );
+      }) : "loading ..."}
     </div>
   );
 };

@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   account: null,
-  myNFTs : null,
+  accNFTs : null,
+  listedNFTs: [],
 };
 
 export const accountsSlice = createSlice({
@@ -12,13 +13,16 @@ export const accountsSlice = createSlice({
     setAccount: (state, action) => {
       state.account = action.payload;
     },
-    setMyNFTs: (state, action) => {
-      state.myNFTs = action.payload;
+    setNFTs: (state, action) => {
+      state.accNFTs = action.payload;
+    },
+    setListedNFTs: (state, action) => {
+      state.listedNFTs = action.payload;
     },
   },
 });
 
-export const { setAccount,setMyNFTs } = accountsSlice.actions;
+export const { setAccount,setNFTs,setListedNFTs } = accountsSlice.actions;
 
 export default accountsSlice.reducer;
 
